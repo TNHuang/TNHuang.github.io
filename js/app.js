@@ -1,35 +1,39 @@
 window.onload = function(){
 	var query = document.getElementById("query");
-	var result = document.getElementsByClassName("result")[0];
+	var submit = document.getElementsByClassName("submit-btn")[0];
 	var qresult = document.getElementsByClassName("query-results")[0];
+	
+    // var xmlhttp;
 
-	var url = "http://octopart.com/api/v3/parts/search";
-    url += "?callback=?";
-    url += "&apikey=612b8697";
+    // if (window.XMLHttpRequest){//IE7+, firefox, chrome, opera, safari
+    // 	xmlhttp = new XMLHttpRequest();
+    // }else{
+    // 	xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    // }
 
-    var xmlhttp;
+    // submit.addEventListener("click", setSrc);
 
-    if (window.XMLHttpRequest){//IE7+, firefox, chrome, opera, safari
-    	xmlhttp = new XMLHttpRequest();
-    }else{
-    	xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-    }
+    // function setSrc(){
+    
+    // 	scriptTag.src = url + "&q=" + query.value.replace(/\s/g, "+");
+    // 	result.innerHTML = query.value;
+    // }
 
-	query.addEventListener("keydown", function(){
+	query.addEventListener("keypress", function(){
+
 		setTimeout(function(){
-			query_url = url + "&q=" + query.value
-			result.innerHTML = query.value;
 
-			xmlhttp.open("GET", query_url, false );
-			xmlhttp.send();
+			var scriptTag = document.createElement("SCRIPT");
+			document.getElementsByTagName('HEAD')[0].appendChild(scriptTag); 
 
-			xmlhttp.onreadystatechange = function(){
-				if (xmlhttp.readyState === 4 && xmlhttp.status === 200){
-					qresult.innerHTML = xmlhttp.responseText;
-				}
-			}
-		}, 0);
-		
+			var url = "http://octopart.com/api/v3/parts/search";
+			url += "?apikey=612b8697";
+			url += "&callback=logIt";
+
+			qurl =  url + "&q=" + query.value.replace(/\s/g, "+") + "&start=0&limit=20";
+			scriptTag.src = qurl;
+
+		}, 0)
 	});
 }
 
