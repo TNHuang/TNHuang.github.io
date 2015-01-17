@@ -11,6 +11,7 @@
 	<div class='query-container'>
 		<form>
 			<input type='text' id='query' class='query'>
+
 			<input type='submit' value='enter' class='submit-btn'>
 		</form>
 
@@ -25,15 +26,14 @@
 		function logIt(data){
     		if (data.results.length > 0){
     			var table = document.getElementsByClassName("query-results")[0];
-    			table.innerHTML = "";
-    			strs = "<tr><th>name</th><th>brand</th><th>manufacturer</th><th>mpn</th></tr>"
+    			strs = "<tr><th>mpn</th><th>name</th><th>brand</th><th>manufacturer</th></tr>"
     			data = data.results.map(function(e){
     				var item = e.item;
                     strs += "<tr>"
+                            + "<td>" + item.mpn + "</td>"
     				        + "<td>" + e.snippet + "</td>"
                             + "<td>" + item.brand.name + "</td>"
                             + "<td>" + item.manufacturer.name + "</td>"
-                            + "<td>" + item.mpn + "</td>"
                             + "</tr>"
     			});
 
